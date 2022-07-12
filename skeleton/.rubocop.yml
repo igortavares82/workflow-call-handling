@@ -1,0 +1,83 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Exclude:
+    - config/puma.rb
+    - bin/**
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 15
+
+Metrics/ClassLength:
+  CountComments: false  # count full line comments?
+  Max: 200
+
+Metrics/ModuleLength:
+  CountComments: false  # count full line comments?
+  Max: 200
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/Documentation:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/ModuleFunction:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Exclude:
+    - 'Gemfile'

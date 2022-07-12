@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  mri:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUNDLE_GITHUB__COM: ${BUNDLE_GITHUB__COM}
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  tests:
+    extends: mri
+    command: bin/rspec
+
+  dev:
+    extends: mri
+    environment:
+      - AGENT_NUMBER=+351967883611
+    ports:
+      - '9292:9292'
+    command: bin/puma -b tcp://0.0.0.0:9292 config.ru
+
+  console-mri:
+    extends: mri
+    command: bin/console
