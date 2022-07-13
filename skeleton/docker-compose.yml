@@ -10,16 +10,23 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
+    environment:
+      AGENT_MANAGER_URL: 'http://41a8-2001-818-e845-3e00-516c-a89a-58ba-9269.ngrok.io'
 
   tests:
     extends: mri
     command: bin/rspec
+    environment:
+      EXTERNAL_NUMBER: '+123456789'
+      RUBY_ENVIRONMENT: tests
 
   dev:
     extends: mri
     ports:
       - '9292:9292'
     command: bin/puma -b tcp://0.0.0.0:9292 config.ru
+    environment:
+      RUBY_ENVIRONMENT: dev
 
   console-mri:
     extends: mri

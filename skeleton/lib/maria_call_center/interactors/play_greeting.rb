@@ -7,7 +7,7 @@ module MariaCallCenter
       include Log
 
       def initialize(_environment)
-        @message = ''
+        @message = 'Welcome to Maria Flowershop contact center'
       end
 
       def call

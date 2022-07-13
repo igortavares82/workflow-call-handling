@@ -7,10 +7,15 @@ module MariaCallCenter
       include Log
 
       def initialize(environment)
-        @number = nil # load number from environment
+        @number = ENV['EXTERNAL_NUMBER'] # load number from environment
       end
 
       def call
+
+        if ENV['RUBY_ENVIRONMENT'] == 'dev'
+          @number = System[:retrieve_agent].call
+        end
+        
         Models::Dial.new(external_number: @number)
       end
     end

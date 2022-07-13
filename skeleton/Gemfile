@@ -24,6 +24,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug', platforms: :ruby
   gem 'pry-debugger-jruby', platforms: :jruby
+  gem 'httparty'
 end
 
 group :test do

@@ -17,6 +17,7 @@ module MariaCallCenter
       private
       def message(beep)
         # TODO return appropriate message in function of beep value
+        'Please leave a message after the beep'
       end
     end
   end

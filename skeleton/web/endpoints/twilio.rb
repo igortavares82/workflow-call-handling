@@ -37,7 +37,8 @@ module MariaCallCenter
         end
 
         post do
-          # TODO staus
+
+          status 200
 
           serializer = MariaCallCenter::Serializers::Goto.new
 
@@ -47,7 +48,7 @@ module MariaCallCenter
           when '2'
             serializer.serialize(next_step: :dial_number)
           else
-            raise 'not yet implemented'
+            serializer.serialize(next_step: :main_menu)
           end
         end
       end
@@ -74,6 +75,14 @@ module MariaCallCenter
           serializer = MariaCallCenter::Serializers::Goto.new
 
           # TODO redirect to the correct endpoint in function of digits (as done in main-menu)
+          case params['Digits']
+          when '1'
+            serializer.serialize(next_step: :request_tax_number)
+          when '2'
+            serializer.serialize(next_step: :orders_message)
+          else
+            serializer.serialize(next_step: :voicemail)
+          end
         end
       end
 
@@ -132,6 +141,13 @@ module MariaCallCenter
 
           serializer = MariaCallCenter::Serializers::Dial.new
           serializer.serialize(dial: dial)
+        end
+      end
+
+      resource :retrieve do
+        get do
+          status 200
+          retrieveAgent = System[:retrieve_agent].call
         end
       end
     end

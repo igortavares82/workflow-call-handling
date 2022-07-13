@@ -18,6 +18,7 @@ module MariaCallCenter
     require 'maria_call_center/interactors/play_payments_message'
     require 'maria_call_center/interactors/leave_message'
     require 'maria_call_center/interactors/dial_external_number'
+    require 'maria_call_center/interactors/retrieve_agent'
 
 
     # When to use memoize?
@@ -59,6 +60,9 @@ module MariaCallCenter
     }
     container.register(:dial_external_number, memoize: true) {
       Interactors::DialExternalNumber.new(container)
+    }
+    container.register(:retrieve_agent, memoize: true) {
+      Interactors::RetrieveAgent.new(container)
     }
 
     eagerly_initialize(container) if eagerly_initialize

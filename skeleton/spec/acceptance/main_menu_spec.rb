@@ -2,7 +2,7 @@ require 'acceptance_spec_helper'
 
 RSpec.describe 'Main menu requested' do
   let(:messages) {
-    'Mark one for automatic answers. Mark two to speak with an agent'
+   'Mark one for automatic answers. Mark two to speak with an agent'
   }
 
   When { post(main_menu_path) }
