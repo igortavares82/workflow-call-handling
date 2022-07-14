@@ -19,7 +19,8 @@ module MariaCallCenter
     require 'maria_call_center/interactors/leave_message'
     require 'maria_call_center/interactors/dial_external_number'
     require 'maria_call_center/interactors/retrieve_agent'
-
+    require 'maria_call_center/interactors/release_agent'
+    require 'maria_call_center/repository/agent_repository'
 
     # When to use memoize?
     # Memoize should be used when registering thread-safe instances, so they
@@ -63,6 +64,12 @@ module MariaCallCenter
     }
     container.register(:retrieve_agent, memoize: true) {
       Interactors::RetrieveAgent.new(container)
+    }
+    container.register(:release_agent, memoize: true) {
+      Interactors::ReleaseAgent.new(container)
+    }
+    container.register(:agent_repository, memoize: true) {
+      Repository::AgentRepository.new(container)
     }
 
     eagerly_initialize(container) if eagerly_initialize

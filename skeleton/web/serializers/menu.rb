@@ -9,7 +9,6 @@ module MariaCallCenter
           r.gather(action: success_handler.to_s,
                    method: 'POST',
                    num_digits: 1) do |gather|
-            # TODO add instruction to say the list of messages.
             gather.say(message: menu.messages.join('. '))
           end
           r.redirect(timeout_handler.to_s) if timeout_handler

@@ -5,10 +5,13 @@ require 'serializers/input'
 require 'serializers/goto'
 require 'serializers/voicemail'
 require 'serializers/dial'
+require 'helpers/log'
 
 module MariaCallCenter
   module Endpoints
     class Twilio < Grape::API
+      helpers Helpers::Log
+
       resource :inbound_call do
         post do
           say = System[:play_greeting].call
@@ -37,7 +40,6 @@ module MariaCallCenter
         end
 
         post do
-
           status 200
 
           serializer = MariaCallCenter::Serializers::Goto.new
@@ -135,8 +137,11 @@ module MariaCallCenter
       end
 
       resource :dial_number do
+        params do
+          requires :CallSid, type: String, allow_blank: true
+        end
         post do
-          dial = System[:dial_external_number].call
+          dial = System[:dial_external_number].call(call_sid: params['CallSid'])
           status 200
 
           serializer = MariaCallCenter::Serializers::Dial.new
@@ -144,10 +149,20 @@ module MariaCallCenter
         end
       end
 
-      resource :retrieve do
-        get do
-          status 200
-          retrieveAgent = System[:retrieve_agent].call
+      resource :webhook do
+        params do
+          requires :CallStatus, type: String, allow_blank: false
+          requires :CallSid, type: String, allow_blank: false
+        end
+
+        post do
+          status 204
+
+          case params['CallStatus']
+          when 'completed'
+            System[:release_agent].call(call_sid: params['CallSid'])
+          end
+
         end
       end
     end

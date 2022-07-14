@@ -11,7 +11,7 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     environment:
-      AGENT_MANAGER_URL: 'http://41a8-2001-818-e845-3e00-516c-a89a-58ba-9269.ngrok.io'
+      AGENT_MANAGER_URL: 'http://92fb-2001-818-e845-3e00-30f7-a840-d5e9-28af.ngrok.io'
 
   tests:
     extends: mri
@@ -27,7 +27,21 @@ services:
     command: bin/puma -b tcp://0.0.0.0:9292 config.ru
     environment:
       RUBY_ENVIRONMENT: dev
+      MONGO_URL: 'mongodb://citizix:S3cret@db:27017/workflow'
+    depends_on:
+      - db
 
   console-mri:
     extends: mri
     command: bin/console
+
+  db:
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=workflow
+      - MONGO_INITDB_ROOT_USERNAME=citizix
+      - MONGO_INITDB_ROOT_PASSWORD=S3cret

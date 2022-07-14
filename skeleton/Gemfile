@@ -19,6 +19,7 @@ gem 'logging'
 gem 'newrelic_rpm'
 gem 'bugsnag'
 gem 'twilio-ruby'
+gem 'mongo'
 
 group :development, :test do
   gem 'pry'
