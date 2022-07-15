@@ -4,7 +4,7 @@ RSpec.describe 'Dial external number' do
   Given {
     MariaCallCenter::System.stub(:env, {'AGENT_NUMBER' => '+123456789'})
   }
-  When { post(dial_number_path) }
+  When { post(dial_number_path, {'CallSid' => 'ABC123'}) }
   Then { expect(last_response.status).to be 200 }
   And  { expect(last_response.headers).to include('Content-Type' => 'application/xml') }
   And  { expect(parsed_response['Response']).to be }

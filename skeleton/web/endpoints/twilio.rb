@@ -76,7 +76,6 @@ module MariaCallCenter
 
           serializer = MariaCallCenter::Serializers::Goto.new
 
-          # TODO redirect to the correct endpoint in function of digits (as done in main-menu)
           case params['Digits']
           when '1'
             serializer.serialize(next_step: :request_tax_number)
@@ -90,7 +89,7 @@ module MariaCallCenter
 
       resource :request_tax_number do
         post do
-          input = nil # TODO call appropriate interactor
+          input = System[:request_tax_number].call
 
           status 200
 
@@ -140,8 +139,10 @@ module MariaCallCenter
         params do
           requires :CallSid, type: String, allow_blank: true
         end
+
         post do
           dial = System[:dial_external_number].call(call_sid: params['CallSid'])
+
           status 200
 
           serializer = MariaCallCenter::Serializers::Dial.new
@@ -156,13 +157,13 @@ module MariaCallCenter
         end
 
         post do
-          status 204
+          status 200
 
-          case params['CallStatus']
-          when 'completed'
+          if params['CallStatus'] == 'completed'
             System[:release_agent].call(call_sid: params['CallSid'])
           end
 
+          body false
         end
       end
     end

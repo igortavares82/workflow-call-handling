@@ -27,7 +27,6 @@ module MariaCallCenter
             number: doc['number'],
             call_sid: doc['call_sid'])
         }
-        puts @agent.call_sid
         @agent
       end
 

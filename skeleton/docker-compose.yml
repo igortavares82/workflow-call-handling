@@ -11,7 +11,7 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     environment:
-      AGENT_MANAGER_URL: 'http://92fb-2001-818-e845-3e00-30f7-a840-d5e9-28af.ngrok.io'
+      AGENT_MANAGER_URL: 'http://9349-2001-818-e845-3e00-6ce3-87f7-79ad-2c20.ngrok.io'
 
   tests:
     extends: mri
